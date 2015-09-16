@@ -13,6 +13,7 @@
  *= require_tree .
  *= require bootstrap
  *= require normalize-css
+ *= require toastr
  *= require_self
  */
 
@@ -54,4 +55,8 @@ footer {
 
 .jumbotron {
     background-color: rgba(#479d5c, 0.3);
+}
+
+.toast-success {
+  background-color: #469446;
 }

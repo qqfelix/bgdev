@@ -1,47 +1,86 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Bgdev</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-<header>
-    <nav class="navbar navbar-default" role="navigation">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">本钢设备评估体系系统</a>
+    <head>
+        <title>Bgdev</title>
+        <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+        <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+        <%= csrf_meta_tags %>
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button class="navbar-toggle" data-target="#navbar" data-toggle="collapse" type="button">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">本钢设备评估体系系统</a>
+                    </div>
+
+<!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="navbar">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <a href="#"></a>
+                            </li>
+                        </ul>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <% if logged_in? %>
+                            <li><%= link_to current_user.name, '#' %></li>
+                            <li><%= link_to "退出", {:controller => 'users', :action => 'logout'} %></li>
+                            <% else %>
+                            <li><%= link_to "注册", {:controller => 'users', :action => 'signup'} %></li>
+                            <li><%= link_to "登录", {:controller => 'users', :action => 'signin'} %></li>
+                            <% end %>
+
+                        </ul>
+                    </div>
+<!-- /.navbar-collapse -->
+                </div>
+<!-- /.container-fluid -->
+            </nav>
+        </header>
+        <div class="container" id="main">
+            <% if logged_in? %>
+                <div class="col-sm-2">
+                    <div aria-multiselectable="true" class="panel-group" id="accordion" role="tablist">
+                        <%= render :partial => "shared/collapse_panel", :locals => {:title => "用户管理", :controller => "users", :items => [{:name => "首页", :action => "welcome"},{:name => "基本资料",:action => "edit"},{:name => "xxxx",:action => "xxxx"}]} %>
+                        <%= render :partial => "shared/collapse_panel", :locals => {:title => "xxxx", :controller => "xxxx",:items => [{:name => "xxxx",:action => "xxxx"},{:name => "xxxx",:action => "xxxx"}]} %>
+                        <%= render :partial => "shared/collapse_panel", :locals => {:title => "xxxx", :controller => "xxxx",:items => [{:name => "xxxx",:action => "xxxx"},{:name => "xxxx",:action => "xxxx"}]} %>
+                    </div>
+                </div>
+            <% end %>
+
+            <% if logged_in? %>
+               <div class="col-sm-10">
+            <% else %>
+                <div class="col-sm-12">
+            <% end %>
+                <%= yield %>
+            </div>
+
         </div>
+        <footer>
+            <h5>
+                &copy;本钢设备部信息处技术支持
+                <br>
+                联系电话：18004148181
+            </h5>
+        </footer>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="navbar">
-          <ul class="nav navbar-nav">
-            <li><a href="#"></a></li>
-          </ul>
-
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">注册</a></li>
-            <li><a href="#">登录</a></li>
-          </ul>
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
-    </nav>
-</header>
-<div id="main" class="container">
-    <%= yield %>
-</div>
-<footer>
-    <h5>
-        &copy;本钢设备部信息处技术支持 <br>
-        联系电话：18004148181
-    </h5>
-</footer>
-</body>
+        <script type="text/javascript">
+            <% if flash[:notice] %>
+            toastr.options.positionClass = 'toast-top-center';
+            toastr.options.closeMethod = 'fadeOut';
+            toastr.options.showMethod = 'slideDown';
+            toastr.options.hideMethod = 'slideUp';
+            toastr.options.closeMethod = 'slideUp';
+                toastr.success("<%= flash[:notice] %>");
+            <% end %>
+        </script>
+    </body>
 </html>
