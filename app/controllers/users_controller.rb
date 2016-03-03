@@ -29,6 +29,7 @@ class UsersController < ApplicationController
         flash[:notice] = "登录成功！"
         redirect_to :root
     else
+        flash[:error] = "用户名或密码错误！"
         render 'signin'
     end
   end
@@ -58,6 +59,8 @@ class UsersController < ApplicationController
       else
           render 'edit'
       end
+
+
   end
 
 

@@ -1,0 +1,14 @@
+<% if logged_in? %>
+    <div class="col-sm-2">
+        <div aria-multiselectable="true" class="panel-group" id="accordion" role="tablist">
+            <%= render :partial => "shared/collapse_panel", :locals => {:title => "用户管理", :controller => "users", :items => [{:name => "首页", :action => "welcome"},{:name => "基本资料",:action => "edit"},{:name => "xxxx",:action => "xxxx"}]} %>
+            <%= render :partial => "shared/collapse_panel", :locals => {:title => "xxxx", :controller => "xxxx",:items => [{:name => "xxxx",:action => "xxxx"},{:name => "xxxx",:action => "xxxx"}]} %>
+            <%= render :partial => "shared/collapse_panel", :locals => {:title => "xxxx", :controller => "xxxx",:items => [{:name => "xxxx",:action => "xxxx"},{:name => "xxxx",:action => "xxxx"}]} %>
+        </div>
+    </div>
+    <div class="col-sm-10">
+        <%= yield %>
+    </div>
+<% else %>
+    <%= yield %>
+<% end %>
